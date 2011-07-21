@@ -14,13 +14,60 @@ function startLife() {
     [ 0, 0, 0, 0, 0]
   ]
 
-  lifediv = document.getElementById("life_outer");
+  if (document.lifeHasStarted)
+    document.lifeDoc.runOneCycle();
+  else {
+    var lifediv = document.getElementById("life_outer");
 
-  lifedoc = new LifeDoc(lifediv);
-  lifedoc.addArray(blinker);
-  lifedoc.makeGridElements();
+    var lifedoc = new LifeDoc(lifediv);
+    lifedoc.addArray(blinker);
+    lifedoc.makeGridElements();
+    document.lifeDoc = lifedoc;
+    document.lifeHasStarted = true;
+  }
+
+  var timer = setTimeout("startLife()", 3000);
 }
 
+LifeDoc.prototype.runOneCycle = function() {
+  this.lifeGrid = this.lifeGrid.makeNextGeneration();
+  this.setGridColors();
+}
+
+LifeDoc.prototype.cellsAsFlattenedArray = function() {
+  var allrows = this.topdiv.getElementsByTagName("div");
+  var cells = new Array();
+  var cellnum = 0;
+  for (n=0; n<allrows.length; n++)
+    if (allrows[n].className == "deadcell" || allrows[n].className == "livecell")
+      cells[cellnum++] = allrows[n];
+
+  this.cells = cells;
+  return cells;
+}
+
+LifeDoc.prototype.cellAt = function(x,y) {
+  var index = y*this.lifeGrid.numCols() + x;
+  return this.cells[index];
+}
+
+LifeDoc.prototype.setGridColors = function(array) {
+  var rows  = this.lifeGrid.numRows();
+  var cols  = this.lifeGrid.numCols();
+
+  this.cellsAsFlattenedArray();
+
+  for (x=0; x<cols; x++) {
+    for (y=0; y<rows; y++) {
+      var className = "deadcell";
+      if (1 == this.lifeGrid.valueAt(x,y))
+        className = "livecell";
+
+      // console.log("cell("+x+","+y+"): " + this.cellAt(x,y).className);
+      this.cellAt(x,y).className = className;
+    }
+  }
+}
 
 LifeDoc.prototype.addArray = function(array) {
   this.lifeGrid   = new LifeGrid(array);
