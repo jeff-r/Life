@@ -64,7 +64,7 @@ LifeGrid.prototype.liveOrDieAt = function(x,y) {
   var neighbors = this.neighborsAt(x,y);
   var current = this.valueAt(x,y);
 
-  console.log( "("+x+", "+y+");  current = " + current + "; neighbors = " + neighbors );
+  // console.log( "("+x+", "+y+");  current = " + current + "; neighbors = " + neighbors );
 
   switch(neighbors) {
     case 0:
@@ -80,5 +80,61 @@ LifeGrid.prototype.liveOrDieAt = function(x,y) {
     case 7:
     case 8:
       return 0;
+  }
+}
+
+LifeGrid.prototype.makeNewEmptyArray = function() {
+  var newGrid = new Array();
+  for (row = 0; row < this.numRows(); row++) {
+    var a = new Array();
+    for (col = 0; col < this.numCols(); col++) {
+      a[col] = "X";
+    }
+    newGrid[row] = a;
+  }
+  return newGrid;
+}
+LifeGrid.prototype.equalToArray = function(array) {
+  rows = this.numRows();
+  cols = this.numCols();
+  if (array.length != rows)
+    return false;
+  if (array[0].length != cols)
+    return false;
+
+  for (col=0; col<cols; col++) 
+    for (row=0; row<rows; row++)
+      if (array[row][col] != this.grid[row][col])
+        return false;
+
+  return true;
+}
+
+LifeGrid.prototype.makeNextGenerationArray = function() {
+  var cols = this.numCols();
+  var rows = this.numRows();
+  var newGrid = this.makeNewEmptyArray();
+
+  for (row=0; row<rows; row++)
+    for (col=0; col<cols; col++)  {
+      newGrid[row][col] = this.liveOrDieAt(col, row);
+      // console.log("newGrid["+row+"]["+col+"]: " + newGrid[row][col]);
+    }
+
+  return newGrid;
+}
+
+LifeGrid.prototype.dumpArray = function(title) {
+  rows = this.grid.length;
+  cols = this.grid[0].length;
+
+  console.log(title);
+
+  for (row=0; row<rows; row++) {
+    str = ""
+      for (col=0; col<cols; col++) {
+        str += this.grid[row][col] + " "
+    }
+    console.log(str);
   }
 }
