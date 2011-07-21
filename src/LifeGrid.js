@@ -42,6 +42,14 @@ LifeGrid.prototype.neighborsAt = function(x,y) {
   return sum;
 }
 
+LifeGrid.prototype.setValueAt = function(x,y, value) {
+  x = this.wrapped_x(x);
+  y = this.wrapped_y(y);
+  // console.log("grid[" + y + "][" + x + "] is " + this.grid[y][x]);
+
+  this.grid[y][x] = value;
+}
+
 LifeGrid.prototype.valueAt = function(x,y) {
   x = this.wrapped_x(x);
   y = this.wrapped_y(y);
