@@ -1,0 +1,32 @@
+body {
+  font-family: sans-serif;
+}
+
+#life_outer {
+  height: 50px;
+  background: #ccc;
+}
+
+.rowdiv {
+  padding: 1px;
+}
+
+.livecell {
+  margin-right: 1px;
+  margin-bottom: 1px;
+  background: #800;
+  height: 50px;
+  width:  50px;
+  float: left;
+}
+
+.deadcell {
+  margin-right: 1px;
+  margin-bottom: 1px;
+  background: blue;
+  background: #eee;
+  height: 50px;
+  width:  50px;
+  float: left;
+  display: inline;
+}

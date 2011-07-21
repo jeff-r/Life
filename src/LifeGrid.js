@@ -110,6 +110,10 @@ LifeGrid.prototype.equalToArray = function(array) {
   return true;
 }
 
+LifeGrid.prototype.makeNextGeneration = function() {
+  return new LifeGrid(this.makeNextGenerationArray());
+}
+
 LifeGrid.prototype.makeNextGenerationArray = function() {
   var cols = this.numCols();
   var rows = this.numRows();
@@ -125,6 +129,7 @@ LifeGrid.prototype.makeNextGenerationArray = function() {
 }
 
 LifeGrid.prototype.dumpArray = function(title) {
+  // console.log("grid: " + this.grid);
   rows = this.grid.length;
   cols = this.grid[0].length;
 
