@@ -12,21 +12,24 @@ body {
 }
 
 .livecell {
-  margin-right: 1px;
-  margin-bottom: 1px;
   background: #800;
-  height: 50px;
-  width:  50px;
-  float: left;
 }
 
 .deadcell {
-  margin-right: 1px;
-  margin-bottom: 1px;
   background: blue;
   background: #eee;
-  height: 50px;
-  width:  50px;
-  float: left;
-  display: inline;
 }
+
+table {
+  padding: 0px;
+  margin:  0px;
+  border:  0px;
+  border-spacing: 1px;
+}
+td {
+  padding: 0px;
+  margin:  0px;
+  border:  0px;
+}
+
+
